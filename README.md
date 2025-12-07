@@ -2,7 +2,7 @@
 
 A Data Science portfolio project that transforms raw customer reviews into actionable business insights using Natural Language Processing (NLP).
 
-🔗 **Live Demo:** [Click here to try the app](LINK_STREAMLIT_ANDA_NANTI_DISINI)
+🔗 **Live Demo:** [Click here to try the app](https://air-france-review-voc-dashboard-by-fauzan-pahlevi.streamlit.app/)
 
 ## 📌 Project Overview
 This dashboard helps airline management understand passenger sentiment and identify root causes of dissatisfaction. Unlike standard analysis, this project employs a **Hybrid Anchor Strategy** (Title + Text concatenation) to capture high-density sentiment signals often missed in long descriptive text.
