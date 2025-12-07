@@ -118,7 +118,7 @@ if uploaded_file is not None:
                 col1, col2, col3 = st.columns(3)
                 col1.metric("Total Reviews", len(df))
                 col2.metric("Negative Reviews", f"{total_neg} user", delta_color="inverse")
-                col3.metric("⚠️ Risk of Revenue Loss", f"Rp {potential_loss:,.0f}", help="Negative x Price x Churn")
+                col3.metric("⚠️ Risk of Revenue Loss", f"€ {potential_loss:,.0f}", help="Negative x Price x Churn")
 
                 st.divider()
 
@@ -182,4 +182,5 @@ if uploaded_file is not None:
         st.error(f"There was an error while processing the file: {e}")
 
 else:
+
     st.info("👆 Upload your .csv file to begin.")
