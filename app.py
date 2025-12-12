@@ -200,7 +200,7 @@ if uploaded_file is not None:
 
                 # ROW 4: CATEGORIZATION BY TOPIC
                 st.subheader("📊 Sentiment Distribution by Topic")
-                st.caption("Lihat aspek mana yang paling banyak mengecewakan pelanggan.")
+                st.caption("See which aspects disappoint customers.")
 
                 # Hitung data untuk grafik
                 category_sentiment = df.groupby(['Category', 'Sentiment']).size().reset_index(name='Count')
@@ -224,5 +224,6 @@ if uploaded_file is not None:
 else:
 
     st.info("👆 Upload your .csv file to begin.")
+
 
 
