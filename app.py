@@ -4,6 +4,7 @@ import re
 import nltk
 import matplotlib.pyplot as plt
 import seaborn as sns
+import altair as alt
 from nltk.sentiment.vader import SentimentIntensityAnalyzer
 from sklearn.feature_extraction.text import CountVectorizer
 
@@ -197,7 +198,23 @@ if uploaded_file is not None:
                     else:
                         st.info("No positive reviews.")
 
-                # ROW 4: RAW DATA (Menampilkan kolom gabungan untuk verifikasi)
+                # ROW 4: CATEGORIZATION BY TOPIC
+                st.subheader("📊 Sentiment Distribution by Topic")
+                st.caption("Lihat aspek mana yang paling banyak mengecewakan pelanggan.")
+
+                # Hitung data untuk grafik
+                category_sentiment = df.groupby(['Category', 'Sentiment']).size().reset_index(name='Count')
+
+                chart = alt.Chart(category_sentiment).mark_bar().encode(
+                    x=alt.X('Category', sort='-y'), # Urutkan dari yang terbanyak
+                    y='Count',
+                    color=alt.Color('Sentiment', scale={'domain': ['Negative', 'Neutral', 'Positive'], 'range': ['#e74c3c', '#95a5a6', '#2ecc71']}),
+                    tooltip=['Category', 'Sentiment', 'Count']
+                ).interactive()
+
+                st.altair_chart(chart, use_container_width=True)
+                
+                # ROW 5: RAW DATA
                 with st.expander("See raw data (including the combined text column)"):
                     st.dataframe(df[[col_date, col_title, col_text, 'Combined_Raw', 'Sentiment']].head(50))
 
@@ -207,4 +224,5 @@ if uploaded_file is not None:
 else:
 
     st.info("👆 Upload your .csv file to begin.")
+
 
