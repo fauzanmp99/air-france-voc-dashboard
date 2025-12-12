@@ -24,6 +24,26 @@ def clean_text(text):
     text = re.sub(r'[^\w\s]', '', text)
     return text.strip()
 
+# Functions to detect conversation topic
+def categorize_review(text):
+    text = str(text).lower()
+    
+    # Keyword Dictionary
+    keywords = {
+        'Food & Drinks': ['food', 'meal', 'drink', 'beverage', 'snack', 'catering', 'water', 'coffee', 'tea'],
+        'Seat & Comfort': ['seat', 'legroom', 'space', 'comfort', 'cabin', 'sleep', 'chair'],
+        'Service & Staff': ['crew', 'staff', 'attendant', 'service', 'hostess', 'rude', 'polite', 'helpful'],
+        'Punctuality': ['delay', 'late', 'time', 'schedule', 'cancel', 'wait', 'hour'],
+        'Baggage': ['bag', 'luggage', 'suitcase', 'lost', 'claim', 'damaged'],
+        'Entertainment': ['movie', 'screen', 'entertainment', 'wifi', 'film', 'music']
+    }
+    
+    # Check every categories
+    for category, key_list in keywords.items():
+        if any(word in text for word in key_list):
+            return category
+            
+    return 'General/Others' # If no matching category found
 # --- 2. SIDEBAR (Business Parameter & Configuration) ---
 with st.sidebar:
     st.header("💰 Business Parameter")
@@ -107,6 +127,9 @@ if uploaded_file is not None:
                 
                 df['Sentiment'] = df['Cleaned_Text'].apply(get_sentiment)
 
+                #Apply Categorization
+                df['Category'] = df['Cleaned_Text'].apply(categorize_review)
+
                 # --- 4. DASHBOARD VISUALIZATION ---
                 st.divider()
                 st.toast("Analysis Completed! Title & Text have been combined.", icon="✅")
@@ -184,3 +207,4 @@ if uploaded_file is not None:
 else:
 
     st.info("👆 Upload your .csv file to begin.")
+
